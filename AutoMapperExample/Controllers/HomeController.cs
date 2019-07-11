@@ -5,14 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapperExample.Models;
+using AutoMapper;
 
 namespace AutoMapperExample.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMapper _mapper;
+
+        public HomeController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         public IActionResult Index()
         {
-            return View();
+
+            User temp = new User(1, "joey", "tribbiani", "vophanhongdung");
+
+            UserViewModel userViewModel = _mapper.Map<UserViewModel>(temp);
+
+
+            return View(userViewModel);
         }
 
         public IActionResult Privacy()
